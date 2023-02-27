@@ -3,14 +3,31 @@ package handlers
 import (
 	"net/http"
 	"web3/models"
-	render "web3/pkg/render"
+	"web3/pkg/config"
+	"web3/pkg/render"
 )
 
-func HomeHandler(w http.ResponseWriter, request *http.Request) {
+type Repository struct {
+	App *config.AppConfig
+}
+
+var Repo *Repository
+
+func NewRepo(appConfig *config.AppConfig) *Repository {
+	return &Repository{
+		App: appConfig,
+	}
+}
+
+func NewHandlers(r *Repository) {
+	Repo = r
+}
+
+func (m *Repository) HomeHandler(w http.ResponseWriter, request *http.Request) {
 	render.RenderTemplate(w, "home.page.html", &models.PageData{})
 }
 
-func AboutHandler(w http.ResponseWriter, request *http.Request) {
+func (m *Repository) AboutHandler(w http.ResponseWriter, request *http.Request) {
 
 	strMap := make(map[string]string)
 	strMap["title"] = "About Us"

@@ -5,6 +5,13 @@
     <div class="row">
         <div class="col">
             <h1>{{index .StrMap "title"}}</h1>
+            <h2>
+                {{if ne (index .StrMap "userid") ""}}
+                    Hello {{index .StrMap "userid"}}
+                {{else}}
+                    You aren't logged in. Login here: <a href="/">Login</a>
+                {{end}}
+            </h2>
             <p>{{index .StrMap "intro"}}</p>
             <a href="/"><-back to Home</a>
         </div>
